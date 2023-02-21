@@ -4,7 +4,7 @@
 // * GLOBALS * //
 
 let productArray = [];
-let votingRounds = 15;
+let votingRounds = 25;
 
 
 // * DOM WINDOWS * //
@@ -87,6 +87,7 @@ function handleImageClick(event) {
   }
 }
 
+// TODO: STOP THE ABILITY TO KEEP CLICKING AFTER VOTING ROUNDS ARE OVER AND GIVE RESULTS
 function renderResults() {
   if(votingRounds === 0) {
     for (let i = 0; i < productArray.length; i++) {
@@ -97,11 +98,6 @@ function renderResults() {
     resultsBtn.removeEventListener('click', renderResults);
   }
 }
-
-
-
-// TODO: STOP THE ABILITY TO KEEP CLICKING AFTER VOTING ROUNDS ARE OVER
-
 
 
 // * EXECUTABLE CODE * //
