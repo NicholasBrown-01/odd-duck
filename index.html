@@ -14,12 +14,6 @@
 
     <main>
 
-      <article class="results-section">
-        <h4>Results</h4>
-        <button><div id="results-btn">Show Results</div></button>
-        <ul id="results-container"></ul>
-      </article>
-
       <section id="image-containers">
         <h4>Products</h4>
         <img id="img-one" src="" alt="">
@@ -27,13 +21,20 @@
         <img id="img-three" src="" alt="">
       </section>
 
+      <article class="results-section">
+        <h4>Results</h4>
+        <button><div id="results-btn">Show Results</div></button>
+        <ul id="results-container"></ul>
+        <canvas id="my-chart"></canvas>
+      </article>
+
 
     </main>
 
     <footer>
       <h3>Contact Information</h3>
     </footer>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
     <script src="app.js"></script>
   </body>
 </html>
