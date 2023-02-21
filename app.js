@@ -83,6 +83,7 @@ function handleImageClick(event) {
 
   if (votingRounds === 0) {
     imgContainers.removeEventListener('click', handleImageClick);
+    alert('Voting is now over, please click the "Show Results" button on the left.');
   }
 }
 
