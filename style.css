@@ -19,19 +19,21 @@ header{
 }
 
 
-
-main {
-  display: flex;
-
-}
-
-
-
 .results-section {
   border: 2px solid rgb(73, 134, 255);
-  width: 250px;
+  width: 900px;
   height: auto;
   text-align: center;
+  margin: 0 auto;
+}
+
+article button {
+  border: none;
+  border-radius: 10px;
+  display: inline-block;
+  padding: 10px;
+  background-color: rgb(255, 255, 255);
+  color: rgb(67, 21, 194);
 }
 
 
@@ -49,14 +51,6 @@ main {
   height: 300px;
 }
 
-article button {
-  border: none;
-  border-radius: 10px;
-  display: inline-block;
-  padding: 10px;
-  background-color: rgb(255, 255, 255);
-  color: rgb(67, 21, 194);
-}
 
 footer {
   border: 2px solid black;

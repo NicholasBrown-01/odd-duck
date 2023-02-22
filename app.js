@@ -14,7 +14,9 @@ let imgOne = document.getElementById('img-one');
 let imgTwo = document.getElementById('img-two');
 let imgThree = document.getElementById('img-three');
 let resultsBtn = document.getElementById('results-btn');
-let resultsList = document.getElementById('results-container');
+
+// *** CANVAS ELEMENT FOR CHART *** //
+let ctx = document.getElementById('my-chart');
 
 
 
@@ -27,21 +29,25 @@ function Product(name, fileExtension = 'jpg'){
   this.shown = 0;
 }
 
+let indexArray = [];
+let previousIndexArray = [];
 
 
 // * HELPER FUNCTIONS & UTILITIES * //
 
 function renderImages() {
-  // TODO: 3 IMAGES ON THE PAGE
-  let imgOneIndex = randomImageIndex();
-  let imgTwoIndex = randomImageIndex();
-  let imgThreeIndex = randomImageIndex();
-  // TODO: MAKE IMAGES UNIQUE
-  while (imgOneIndex === imgTwoIndex || imgOneIndex === imgThreeIndex || imgTwoIndex === imgThreeIndex) {
-    imgOneIndex = randomImageIndex();
-    imgTwoIndex = randomImageIndex();
-    imgThreeIndex = randomImageIndex();
+
+  while(indexArray.length < 6) {
+    let randomNumber = randomImageIndex();
+    if(!indexArray.includes(randomNumber) && !previousIndexArray.includes(randomNumber)) {
+      indexArray.push(randomNumber);
+    }
   }
+  console.log(indexArray);
+
+  let imgOneIndex = indexArray.splice(0, 1)[0];
+  let imgTwoIndex = indexArray.splice(0, 1)[0];
+  let imgThreeIndex = indexArray.splice(0, 1)[0];
 
   imgOne.src = productArray[imgOneIndex].image;
   imgOne.title = productArray[imgOneIndex].name;
@@ -66,10 +72,50 @@ function randomImageIndex() {
   return Math.floor(Math.random() * productArray.length);
 }
 
+// *** HELPER FUNCTION TO RENDER CHART *** //
+function renderChart() {
+  let productNames = [];
+  let productVotes = [];
+  let productShown = [];
+
+  for (let i = 0; i < productArray.length; i++) {
+    productNames.push(productArray[i].name);
+    productVotes.push(productArray[i].votes);
+    productShown.push(productArray[i].shown);
+  }
+
+  let chartObj = {
+    type: 'bar',
+    data: {
+      labels: productNames,
+      datasets: [{
+        label: '# of Votes',
+        data: productVotes,
+        borderWidth: 1
+      },
+      {
+        label: '# of times Shown',
+        data: productShown,
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  };
+
+  // *** 2 args for the Chart Constructor - canvas element, config obj with goat data
+  new Chart(ctx, chartObj); //eslint-disable-line
+}
+
+
 // TODO: IDENTIFY IMAGE THAT WAS CLICKED
 function handleImageClick(event) {
   let imgClicked = event.target.title;
-  console.dir(imgClicked);
   // TODO: INCREASE NUMBER OF VOTES ON THAT IMAGE
   for (let i = 0; i < productArray.length; i++) {
     if (imgClicked === productArray[i].name) {
@@ -83,21 +129,22 @@ function handleImageClick(event) {
 
   if (votingRounds === 0) {
     imgContainers.removeEventListener('click', handleImageClick);
-    alert('Voting is now over, please click the "Show Results" button on the left.');
+    alert('Voting is now over, please click the "Show Results" button under the images.');
   }
 }
 
 // TODO: STOP THE ABILITY TO KEEP CLICKING AFTER VOTING ROUNDS ARE OVER AND GIVE RESULTS
 function renderResults() {
   if(votingRounds === 0) {
-    for (let i = 0; i < productArray.length; i++) {
-      let productListItem = document.createElement('li');
-      productListItem.textContent = `${productArray[i].name} had ${productArray[i].votes} votes and was shown ${productArray[i].shown} times.`;
-      resultsList.appendChild(productListItem);
-    }
+
+    renderChart();
+
     resultsBtn.removeEventListener('click', renderResults);
   }
 }
+
+
+
 
 
 // * EXECUTABLE CODE * //
