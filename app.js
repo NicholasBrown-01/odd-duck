@@ -30,8 +30,6 @@ function Product(name, fileExtension = 'jpg'){
 }
 
 let indexArray = [];
-let previousIndexArray = [];
-
 
 // * HELPER FUNCTIONS & UTILITIES * //
 
@@ -39,7 +37,7 @@ function renderImages() {
 
   while(indexArray.length < 6) {
     let randomNumber = randomImageIndex();
-    if(!indexArray.includes(randomNumber) && !previousIndexArray.includes(randomNumber)) {
+    if(!indexArray.includes(randomNumber)) {
       indexArray.push(randomNumber);
     }
   }
