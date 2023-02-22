@@ -43,9 +43,9 @@ function renderImages() {
   }
   console.log(indexArray);
 
-  let imgOneIndex = indexArray.splice(0, 1)[0];
-  let imgTwoIndex = indexArray.splice(0, 1)[0];
-  let imgThreeIndex = indexArray.splice(0, 1)[0];
+  let imgOneIndex = indexArray.splice(0, 1);
+  let imgTwoIndex = indexArray.splice(0, 1);
+  let imgThreeIndex = indexArray.splice(0, 1);
 
   imgOne.src = productArray[imgOneIndex].image;
   imgOne.title = productArray[imgOneIndex].name;
